@@ -13,6 +13,8 @@ def hello_world2(request):
               'important': 'High'},
              {'title': '英语作业',
               'important': 'Medium'},
+             {'title': '其它作业',
+              'important': '其它'},
              ]
     todohead = [{'head': '我的作业',
               'level': '重要性'},

@@ -74,3 +74,9 @@ Applying sessions.0001_initial... OK
        第六步,打开eclipse中的菜单window,选择reference.找到左侧边栏的pydev，展开，点击Interpreter-Python
        第七步,点击new,找到python安装路径,我是c:\python\python.exe,确定导入就可以了
        这样就可以在eclipse中新建python程序了
+
+
+python manage.py syncdb //Django创建指定的数据库，会询问您是否要创建管理用户。
+如果此时不创建，可以用下面的命令创建：
+python manage.py createsuperuser
+
