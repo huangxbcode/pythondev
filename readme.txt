@@ -80,3 +80,7 @@ python manage.py syncdb //Django创建指定的数据库，会询问您是否要创建管理用户。
 如果此时不创建，可以用下面的命令创建：
 python manage.py createsuperuser
 
+Your url for admin should be:
+url(r'^admin/', include(admin.site.urls))
+not (r'^admin/(.*)', admin.site.root)----书中所示代码报错
+- it's for Django 1.0. For Django 1.3 it wouldn't work.
