@@ -18,3 +18,7 @@ class Todo(models.Model):
     def __unicode__(self):
         return self.title
     
+    def text_importance(self):
+        choices = dict(importance_choices)
+        return choices[self.importance]
+    

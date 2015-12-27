@@ -11,11 +11,16 @@
 	<body>
 		{% if todos %}
 		<table border="1">
-			<tr><td>Todo</td><td>Importance</td></tr>
-				{% for todo in todos %}
-					<tr><td>{{todo.title}}</td>
-					<td>{{todo.important}}</td></tr>
-				{% endfor %}
+			<tr>
+				<td>Todo</td>
+				<td>Importance</td>
+			</tr>
+			{% for todo in todos %}
+				<tr>
+					<td>{{todo.title}}</td>
+					<td>{{todo.text_importance}}</td>
+				</tr>
+			{% endfor %}
 		</table>
 		{% else %}
 		<p>nothing is done!</p>

@@ -3,18 +3,27 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Context, loader
+from models import Todo
 
 # Create your views here.
 
+def todo_index(request):
+    #todos = Todo.objects.all().order_by('title', 'importance',)
+    todos = Todo.objects.all().order_by()
+    
+    t = loader.get_template('index.tmpl')
+    c = Context({'todos': todos,})
+    return HttpResponse(t.render(c))
+
 def hello_world2(request):
     todos = [{'title': '数学作业',
-              'important': 'Minor'},
+              'importance': 'Minor'},
              {'title': '语文作业，作文一篇',
-              'important': 'High'},
+              'importance': 'High'},
              {'title': '英语作业',
-              'important': 'Medium'},
+              'importance': 'Medium'},
              {'title': '其它作业',
-              'important': '其它'},
+              'importance': '其它'},
              ]
     todohead = [{'head': '我的作业',
               'level': '重要性'},
