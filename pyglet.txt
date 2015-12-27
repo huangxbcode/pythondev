@@ -1,0 +1,8 @@
+下载并安装pyglet
+www.pyglet.org/download.html
+https://bitbucket.org/pyglet/pyglet/downloads
+1.2.4  1.2.0
+其中，zip无法下载，.tar.gz可以下载
+
+从下面的地址下载星球的图片
+http://www.nasa.gov/multimedia/imagegallery/
