@@ -10,6 +10,5 @@ urlpatterns = patterns('',
 
     #(r'^admin/(.*)', include(admin.site.urls)),
     (r'^admin/(.*)/$', include(admin.site.urls)),
-    
     (r'.*', 'todo.views.hello_world2'),
 )
