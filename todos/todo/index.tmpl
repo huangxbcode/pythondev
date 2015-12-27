@@ -1,0 +1,24 @@
+
+<html>
+	<head>
+		<title>My todo list</title>
+		<style type="text/css">
+			body { font-family: Arial, Helvetica, sans-serif;
+					color: black;
+					backgroud: #ffffff; }
+		</style>
+	</head>
+	<body>
+		{% if todos %}
+		<table border="1">
+			<tr><td>Todo</td><td>Importance</td></tr>
+				{% for todo in todos %}
+					<tr><td>{{todo.title}}</td>
+						<td>{{todo.importance}}</td></tr>
+				{% endfor %}
+		</table>
+		{% else %}
+		<p>nothing is done!</p>
+		{% endif %}
+	</body>
+</html>
