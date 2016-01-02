@@ -24,7 +24,9 @@ center_anchor(ship_image_on)
 
 def update(dt):
     print "ship.update,dt:", dt
-    ship.update(dt)           
+    ship.update(dt)
+    planet.update(dt)
+
 
 class Planet(pyglet.sprite.Sprite):
     def __init__(self, image, x=0, y=0, batch=None):
@@ -32,6 +34,30 @@ class Planet(pyglet.sprite.Sprite):
                                      image, x, y, batch=batch)
         self.x = x
         self.y = y
+        self.mass = 5000000 # experiment!
+        
+    def dist_vec_to(self, target):
+        dx = target.x -self.x
+        dy = target.y - self.y
+        sqr_distance = dx**2 + dy**2
+        distance = math.sqrt(sqr_distance)
+        
+        angle = math.acos(float(dx)/distance)
+        if dy < 0:
+            angle = 2*math.pi - angle
+        return (distance, angle)
+    
+    def force_on(self, target):
+        G = 1 # expriment!
+        distance, angle = self.dist_vec_to(target)
+        return ((-G * self.mass)/(distance**2), angle)
+        
+    def update(self, dt):
+        force, angle = self.force_on(ship)
+        force_x = force * math.cos(angle) * dt
+        force_y = force * math.sin(angle) * dt
+        ship.dx += force_x
+        ship.dy += force_y
 
 class Ship(pyglet.sprite.Sprite):
     def __init__(self, image, x=0, y=0, 
