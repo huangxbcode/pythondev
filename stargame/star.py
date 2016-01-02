@@ -1,6 +1,8 @@
 import pyglet
 from pyglet.window.key import modifiers_string
 from pyglet.window import key
+import math
+from django.template.defaulttags import widthratio
 
 window = pyglet.window.Window(fullscreen=True)
 pyglet.resource.path.append('./images')
@@ -14,8 +16,11 @@ def center_anchor(img):
 planet_image = pyglet.resource.image('tn-p_lorri_fullframe_color.jpg')
 center_anchor(planet_image)
 
-ship_image = pyglet.resource.image('ship45.jpg')
+ship_image = pyglet.resource.image('shipanim_off.jpg')
 center_anchor(ship_image)
+
+ship_image_on = pyglet.resource.image('shipanim_on.jpg')
+center_anchor(ship_image_on)
 
 class Planet(pyglet.sprite.Sprite):
     def __init__(self, image, x=0, y=0, batch=None):
@@ -41,21 +46,48 @@ class Ship(pyglet.sprite.Sprite):
         self.engines = False
     
     def update(self, dt):
+        self.image = ship_image        
         if self.rot_left:
             self.rotation -= self.rot_spd*dt
             print "rot_left, self.rotation:", self.rotation
         if self.rot_right:
             self.rotation += self.rot_spd*dt
             print "rot_right, self.rotation:", self.rotation
+        self.rotation = wrap(self.rotation, 360.)
+        if self.engines:
+            self.image = ship_image_on
+            rotation_x = math.cos(
+                                  to_radians(self.rotation))
+            rotation_y = math.sin(
+                                  to_radians(-self.rotation))
+            self.dx += self.thrust * rotation_x * dt
+            self.dy += self.thrust * rotation_y * dt
+            
+        self.x += self.dx * dt
+        self.y += self.dy * dt
+        self.x = wrap(self.x, window.width)
+        self.y = wrap(self.y, window.height)
             
 def update(dt):
     print "ship.update,dt:", dt
     ship.update(dt)           
                 
+def wrap(value, width):
+    if width == 0:
+        return 0
+    if value > width:
+        value -= width
+    if value < 0:
+        value += width
+    return value
+
+def to_radians(degrees):
+    return math.pi * degrees / 180.0
+
 center_x = int(window.width/2)
 center_y = int(window.height/2)
 planet = Planet(planet_image, center_x, center_y, None)
-ship = Ship(ship_image, center_x+500, center_y, dx=0, dy=150, rotv=45)
+ship = Ship(ship_image, center_x+500, center_y, dx=0, dy=150, rotv=0)
 
 pyglet.clock.schedule_interval(update, 1/60.0)
 
