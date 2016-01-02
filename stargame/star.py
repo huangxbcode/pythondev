@@ -22,6 +22,10 @@ center_anchor(ship_image)
 ship_image_on = pyglet.resource.image('shipanim_on.jpg')
 center_anchor(ship_image_on)
 
+def update(dt):
+    print "ship.update,dt:", dt
+    ship.update(dt)           
+
 class Planet(pyglet.sprite.Sprite):
     def __init__(self, image, x=0, y=0, batch=None):
         super(Planet, self).__init__(
@@ -68,9 +72,6 @@ class Ship(pyglet.sprite.Sprite):
         self.x = wrap(self.x, window.width)
         self.y = wrap(self.y, window.height)
             
-def update(dt):
-    print "ship.update,dt:", dt
-    ship.update(dt)           
                 
 def wrap(value, width):
     if width == 0:
@@ -80,6 +81,7 @@ def wrap(value, width):
     if value < 0:
         value += width
     return value
+
 
 def to_radians(degrees):
     return math.pi * degrees / 180.0
